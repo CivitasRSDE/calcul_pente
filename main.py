@@ -12,11 +12,19 @@ pas = st.text_input(label = "Entrez le pas souhaité pour les calculs (en mètre
 
 
 if st.button("Lancer"):
-    st.dataframe(data = courbe_verticale(float(pente1), float(pente2), float(longueur), float(elevation_pcr), float(pas)))
-    st.line_chart(data = courbe_verticale(float(pente1), float(pente2), float(longueur), float(elevation_pcr), float(pas)),
-                  x = "Distance", 
-                  y = ["Élévation_courbe(m)","Élévation_pente(m)"],
-                  use_container_width=True)
+    df = courbe_verticale(float(pente1), float(pente2), float(longueur), float(elevation_pcr), float(pas))
+    fig, ax = plt.subplots()
+    ax.plot(df['Distance'], df['Élévation_courbe(m)'], label='Courbe verticale', linewidth=2)
+    ax.plot(df['Distance'], df['Élévation_pente(m)'], label='Élévation pente', linestyle='--', color='orange')
+
+    ax.set_title("Courbe Verticale")
+    ax.set_xlabel("Distance (m)")
+    ax.set_ylabel("Élévation (m)")
+    ax.grid(True)
+    ax.legend()
+
+    st.pyplot(fig)
+    st.dataframe(df)
 
 
               
