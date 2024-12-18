@@ -1,5 +1,6 @@
 import streamlit as st
 from courbe_verticale import courbe_verticale
+import matplotlib.pyplot as plt
 
 st.title("Résultats de la courbe verticale:")
 
